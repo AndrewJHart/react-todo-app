@@ -1,12 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Router } from 'react-router';
+import { BrowserHistory } from 'history';
+import { routes } from './routes';
 
-function AppLayout() {
+function AppLayout({ routerHistory }) {
   return (
-    <div className="App">
-
-    </div>
+      <>
+        <Router history={routerHistory}>
+          {routes}
+        </Router>
+      </>
   );
+}
+
+AppLayout.propTypes = {
+  routerHistory: PropTypes.any,
 }
 
 export default AppLayout;

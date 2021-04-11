@@ -1,4 +1,7 @@
 import axios from 'axios/index';
+import { getJWT } from '../utils/storage';
+import { AuthService } from './auth';
+
 
 /**
  * wrapper for axios api calls that assists with
@@ -12,11 +15,22 @@ import axios from 'axios/index';
  * @returns {Promise<T>}
  */
 export function api(method, resource, data = {}, extraHeaders = {}) {
-    let headers = {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-        ...extraHeaders
-    };
+    let headers = {};
+
+    if (AuthService.isLoggedIn()) {
+        // fetch jwt key and mixin with extra headers
+        headers = {
+            'Authorization': `Bearer ${getJWT()}`,
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            ...extraHeaders
+        };
+    } else {
+        // no auth header & just merge extra headers
+        headers = {
+            ...extraHeaders
+        };
+    }
 
     return axios(resource,
         {

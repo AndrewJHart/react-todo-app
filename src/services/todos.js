@@ -4,7 +4,7 @@ const baseUrl = 'http://localhost:8080/api/todos';
 /**
  *
  * @param data
- * @return {Promise<T>}
+ * @return {Promise}
  */
 const createTodo = data => {
     return api('post', baseUrl, data)
@@ -16,19 +16,36 @@ const createTodo = data => {
 
 /**
  * Fetch list of all list items and pass any potential
- * filter query params, currently only `isCompleted`
+ * filter query params, currently only `completed`,
+ * and `priority`
  *
- * @param isCompleted
- * @return {Promise<T>}
+ * @param {Object?} options
+ * @return {Promise}
  */
-const getTodoList = (isCompleted = false) => {
-    return api('get', `${baseUrl}?completed=${isCompleted}`)
+const getTodoList = (options) => {
+    // build query params
+    const completed = options?.completed
+        ? `completed=${options.completed}`
+        : '';
+    const rank = options?.rank
+        ? `rank=${options.rank}`
+        : '';
+    const separator = completed && rank
+        ? '&'
+        : '';
+
+    return api('get', `${baseUrl}?${completed}${separator}${rank}`)
         .then(handleResponse)
         .catch(error => {
             throw handleError(error, `getting todo list.`);
         });
 }
 
+/**
+ *
+ * @param id
+ * @return {Promise}
+ */
 const getTodoItem = id => {
     return api('get', `${baseUrl}/${id}`)
         .then(handleResponse)
@@ -42,7 +59,7 @@ const getTodoItem = id => {
  *
  * @param  {number} id - pk of the item to update
  * @param  {Object} data - fields to update
- * @returns {Promise<T>}
+ * @returns {Promise}
  */
 const updateTodo = (id, data) => {
     return api('put', `${baseUrl}/${id}`, data)
@@ -56,7 +73,7 @@ const updateTodo = (id, data) => {
  * Delete a todo item.
  *
  * @param  {number} id
- * @returns {Promise<T>}
+ * @returns {Promise}
  */
 const deleteTodo = id => {
     return api('delete', `${baseUrl}/${id}`)

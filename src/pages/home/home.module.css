@@ -1,0 +1,47 @@
+.home h1 {
+    font-size: 39px;
+    text-align: left;
+}
+
+.home h1 > span {
+    padding-left: 25%;
+}
+
+.button {
+    display: inline-block;
+    font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    padding: 0.8em 4.7em 0.8em 1.4em;
+    background: #009ed8;
+    border: none;
+    color: white;
+    transition: 0.2s;
+}
+.button:before,
+.button:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding-top: inherit;
+    padding-bottom: inherit;
+    width: 2.8em;
+    content: "\00a0";
+    font-family: "FontAwesome", sans-serif;
+    font-size: 1.2em;
+    text-align: center;
+    transition: 0.2s;
+    transform-origin: 50% 60%;
+}
+.button:before {
+    background: rgba(0, 0, 0, 0.1);
+}
+.button:hover {
+    background: #0079a5;
+}
+.button:active,
+.button:focus {
+    background: #002e3f;
+    outline: none;
+}
