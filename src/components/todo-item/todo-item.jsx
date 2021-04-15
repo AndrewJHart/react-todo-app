@@ -4,6 +4,7 @@ import css from './todo-item.module.css';
 
 const TodoItem = (props) => {
     const [title, updateTitle] = React.useState(props.todo.title || '');
+    const [rank, setRank] = React.useState(props.todo.rank);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -13,8 +14,26 @@ const TodoItem = (props) => {
         }
     };
 
-    const handleChange = (e) => {
-        updateTitle(e.target.value);  // this will def need debounced
+    const handleChange = e =>
+        updateTitle(e.target.value)  // this will def need debounced
+
+
+    const handlePriorityClick = e => {
+        e.preventDefault();
+
+        switch (rank) {
+            case 'low':
+                setRank('mid');
+                break;
+            case 'mid':
+                setRank('high');
+                break;
+            case 'high':
+                setRank('low');
+                break;
+        }
+
+        props.handleRankChange(props.todo.id, { ...props.todo, rank });
     }
 
     return (
@@ -34,7 +53,10 @@ const TodoItem = (props) => {
                 />
             </form>
 
-            <a className={`${css.priority} ${css[props.todo.rank]}`}>
+            <a
+                className={`${css.priority} ${css[props.todo.rank]}`}
+                onClick={handlePriorityClick}
+            >
                 {props.todo.rank}
             </a>
 
@@ -51,7 +73,8 @@ TodoItem.propTypes = {
     isVisible: PropTypes.bool,
     handleComplete: PropTypes.func.isRequired,
     handleUpdate: PropTypes.func.isRequired,
-    handleRemove: PropTypes.func.isRequired
+    handleRemove: PropTypes.func.isRequired,
+    handleRankChange: PropTypes.func.isRequired
 }
 
 TodoItem.defaultProps = {

@@ -1,8 +1,8 @@
 import api from './api';
 import moment from 'moment';
 import { decodeJWT, getJWT, setJWT, removeJWT } from '../utils/storage';
-// const rootURL = process.env.REACT_APP_AUTH_URL;
-const baseUrl = 'http://localhost:8080/api/users';
+// const baseURL = process.env.REACT_APP_AUTH_URL;
+const baseUrl = 'https://diversy-api.herokuapp.com/api/users';
 
 /**
  * Accesses the redux store to determine if the

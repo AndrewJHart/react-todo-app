@@ -1,5 +1,5 @@
 import api from './api';
-const baseUrl = 'http://localhost:8080/api/todos';
+const baseUrl = 'https://diversy-api.herokuapp.com/api/todos';
 
 /**
  *

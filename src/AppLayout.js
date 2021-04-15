@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
-import { BrowserHistory } from 'history';
 import { routes } from './routes';
 
 function AppLayout({ routerHistory }) {

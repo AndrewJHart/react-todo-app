@@ -145,6 +145,10 @@ export const HomePage = (props) => {
             });
     }
 
+    const handleRankChange = (id, todo) => {
+        handleUpdate(todo.id, todo);
+    }
+
     console.log('rendered');
 
     return (
@@ -186,6 +190,7 @@ export const HomePage = (props) => {
                                         handleComplete={handleCompleted}
                                         handleUpdate={handleUpdate}
                                         handleRemove={handleRemove}
+                                        handleRankChange={handleRankChange}
                                     />
                                 </li>
                             )
